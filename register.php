@@ -25,6 +25,23 @@
             	$errors['password'] = " Vous devez entrer un mot de passe valide ";
             }
 
+            if (empty($errors)) {
+
+            //Connexion à la base des données
+                require_once('inc/db.php');
+
+            //Préparations et insertions des réquêtes dans la base des données
+
+                $req = $pdo->prepare("INSERT INTO users SET username = ?, email = ?, password = ?");
+
+                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+                $req->execute(array($_POST['username'], $_POST['email'], $password)); 
+                
+                die('Votre compte a bien été créé'); 
+            }
+            
+
             debug($errors);
 
             
