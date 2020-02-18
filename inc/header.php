@@ -1,4 +1,3 @@
-<?php require 'founctions.php'; ?>
 <!doctype html>
 <html lang="en">
   <head>

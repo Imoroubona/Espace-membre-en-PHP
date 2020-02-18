@@ -1,8 +1,5 @@
-<?php require 'inc/header.php'; ?>
-
-
-
-    <?php 
+<?php 
+    require_once 'inc/founctions.php';
 
          if (!empty($_POST)) {
             $errors = array();
@@ -56,17 +53,22 @@
 
             //Préparations et insertions des réquêtes dans la base des données
 
-                $req = $pdo->prepare("INSERT INTO users SET username = ?, email = ?, password = ?");
+                $req = $pdo->prepare("INSERT INTO users SET username = ?, email = ?, password = ?, confirmation_token = ?");
 
                 $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $token = str_random(60);                
 
-                $req->execute(array($_POST['username'], $_POST['email'], $password)); 
+                $req->execute([$_POST['username'], $_POST['email'], $password, $token]);
 
-                die('Votre compte a bien été créé'); 
-            }
-            
+            //Envoi d'email à l'utilisateur
 
-            debug($errors);
+                $user_id = $pdo->lastInsertId();
+
+                mail($_POST['email'], "Confirmation de votre compte", "Afin de valider votre compte, merci de clicquer sur ce lien\n\nhttp://localhost/Espace-membre-en-PHP/confirm.php?id=$user_id&token=$token"); 
+            //Redirection vers la page de connexion
+                header("Location:login.php");
+                exit(); 
+            }           
 
             
         }
@@ -74,5 +76,5 @@
 
     ?>
 
-<?php require 'inc/form.php';?>  
+<?php require 'inc/form.php'; ?>
 <?php require 'inc/footer.php';?>

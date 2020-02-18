@@ -1,4 +1,18 @@
+<?php require 'inc/header.php'; ?>
+
 <h1>S'inscrire</h1>
+<?php if (!empty($errors)):?>
+
+<div class="alert alert-danger">
+
+   <p>Vous n'avez pas rempli le formulaire correctement</p>
+   <ul>
+      <?php  foreach($errors as $error): ?>
+             <li><?=$error; ?></li>
+      <?php endforeach;?>
+   </ul>
+</div>
+<?php endif; ?>
 <div class="col-md-4">
             <form action="" method="POST" >
          <div class="form-group">
@@ -22,4 +36,5 @@
          </div>
          <button class="btn btn-primary">M'inscrire</button>
          </form>
-   </div>
+</div>
+
