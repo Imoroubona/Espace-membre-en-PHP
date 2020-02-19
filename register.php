@@ -1,6 +1,8 @@
 <?php 
     require_once 'inc/founctions.php';
 
+    session_start();
+
          if (!empty($_POST)) {
             $errors = array();
 
@@ -65,6 +67,7 @@
                 $user_id = $pdo->lastInsertId();
 
                 mail($_POST['email'], "Confirmation de votre compte", "Afin de valider votre compte, merci de clicquer sur ce lien\n\nhttp://localhost/Espace-membre-en-PHP/confirm.php?id=$user_id&token=$token"); 
+                $_SESSION['flash']['success'] = "Un email de confirmation vous a été envoyé pour valider votre compte";
             //Redirection vers la page de connexion
                 header("Location:login.php");
                 exit(); 

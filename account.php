@@ -1,9 +1,13 @@
  <?php 
    session_start(); 
    require_once 'inc/founctions.php';
- ?>
- <?php  require_once 'inc/header.php';?>
+   require_once 'inc/header.php';
+   logged_only(); 
 
+ ?>
+
+
+  
  <h1>Votre compte</h1>
   
   <?php debug($_SESSION); ?>

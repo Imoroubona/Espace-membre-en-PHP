@@ -24,11 +24,17 @@ if (session_status() == PHP_SESSION_NONE) {
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="register.php">S'inscrire<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="login.php">Se connecter</a>
-      </li> 
+      <?php if(isset($_SESSION['auth'])):?>
+       
+       <a class="nav-link" href="logout.php">Se déconnecter<span class="sr-only">(current)</span></a>
+        </li>
+      <?php else: ?>
+          <a class="nav-link" href="register.php">S'inscrire<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Se connecter</a>
+        </li>
+      <?php endif;?> 
     </ul>    
   </div>
 </nav>
