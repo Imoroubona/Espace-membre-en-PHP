@@ -11,19 +11,22 @@
  	$user = $req->fetch();
 
  	if($user){
-         session_start();
-          $reset_token = str_random(60);
-          $pdo->prepare("UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?")->execute([$reset_token], [$user->id]);
+        session_start();
 
-          mail($_POST['email'], "Réinitialisation de votre mot de passe", "Afin de valider votre compte, merci de clicquer sur ce lien\n\nhttp://localhost/Espace-membre-en-PHP/reset.php?id=[$user->id]&token=$reset_token");
+        $reset_token = str_random(60);
 
-          $_SESSION['flash']['success'] = "Les instructions du rappel de mot de passe vous sont envoyées par email";
+        $pdo->prepare("UPDATE users SET reset_token = ?, reset_at = NOW() WHERE id = ?")->execute([$reset_token, $user->id]);
+
+
+        mail($_POST['email'], "Réinitialisation de votre mot de passe", "Afin de réinitialiser votre mot de passe, merci de clicquer sur ce lien\n\nhttp://localhost/Espace-membre-en-PHP/reset.php?id=[$user->id]&token=$reset_token");
+
+        $_SESSION['flash']['success'] = "Les instructions du rappel de mot de passe vous sont envoyées par email";
 
           
-          header('Location:login.php');
+        header('Location:login.php');
           exit();
  	}else{
- 		     $_SESSION['flash']['danger'] = "Aucun compte ne correspond à cet email";
+ 		   $_SESSION['flash']['danger'] = "Aucun compte ne correspond à cette adresse";
  	}
 
 }

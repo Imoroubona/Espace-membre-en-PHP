@@ -12,7 +12,7 @@
 
  	session_start();
 
- 	if(password_verify($_POST['password'], $user->password)){
+ 	if(password_verify($_POST['password'], $user['password'])){ 
           $_SESSION ['auth'] = $user;
           $_SESSION['flash']['success'] = "Vous êtes maintenamt connecté";
           header("Location:account.php");
@@ -38,7 +38,7 @@
          </div>         
 
          <div class="form-group">
-            <label for="password">Mot de passe:</label>
+            <label for="password">Mot de passe:<a href="forget.php">(Mot de passe oublié ?)</a> </label>
             <input class="form-control" type="password" name="password" id="password">
          </div>
          
