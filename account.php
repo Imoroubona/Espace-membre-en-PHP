@@ -3,8 +3,8 @@
    logged_only();
 
    if (!empty($_POST)) {
-      if ( $_POST['password'] != $_POST['password_confirm']) {
-          $_SESSION['flash']['error'] = "Les mots de passe ne se correspondent pas";
+      if (empty($_POST['password']) || $_POST['password'] != $_POST['password_confirm']) {
+          $_SESSION['flash']['danger'] = "Les mots de passe ne se correspondent pas";
       }else{
           $user_id = $_SESSION['auth']->id;
           $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
